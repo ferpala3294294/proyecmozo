@@ -78,6 +78,7 @@ class _PedidosCocinaScreenState extends State<PedidosCocinaScreen> {
   static const Color azul = Color(0xFF0870A5);
   static const Color naranja = Color(0xFFE58A24);
   static const Color verde = Color(0xFF26834A);
+  
 
   List<Pedido> pedidos = [];
   final List<Pedido> pedidosAnteriores = [];
