@@ -202,7 +202,7 @@ if (idEstado == '3' || estadoPedido == 'listo') continue;
                 nombre: nombre,
                 detalle: ingredientes.isNotEmpty
                     ? ingredientes
-                    : 'Sin información de ingredientes.',
+                    : 'Sin información .',
                 observacion: observacion,
                 imagen: imagen,
               ),
@@ -782,15 +782,36 @@ class _TarjetaPedido extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 6),
-                Text(
-                  '${pedido.mesa}  ·  ${pedido.hora}',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: Color(0xFF424242),
-                    fontSize: 13,
-                  ),
-                ),
+                Row(
+  children: [
+    Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 8,
+        vertical: 5,
+      ),
+      decoration: BoxDecoration(
+        color: const Color(0xFF424242),
+        borderRadius: BorderRadius.circular(6),
+      ),
+      child: Text(
+        pedido.mesa,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: celular ? 12 : 13,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    ),
+    const SizedBox(width: 8),
+    Text(
+      pedido.hora,
+      style: const TextStyle(
+        color: Color(0xFF424242),
+        fontSize: 13,
+      ),
+    ),
+  ],
+),
               ],
             ),
           ),
