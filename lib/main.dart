@@ -831,7 +831,9 @@ class _TarjetaPedido extends StatelessWidget {
               pedido.preparando ? 'PREPARANDO' : 'RECIBIDO',
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: pedido.preparando ? naranja : azul,
+                color: pedido.preparando
+    ? const Color(0xFFFFC107)
+    : const Color(0xFFDC3545),
                 fontSize: 10,
                 fontWeight: FontWeight.bold,
               ),
