@@ -1,6 +1,6 @@
 
 import 'dart:convert';
-
+import 'login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 //esto señala la base de datos de laravel, si se cambia la ip o el puerto, se debe cambiar aqui tambien
@@ -23,7 +23,10 @@ class ProyecMozo extends StatelessWidget {
         fontFamily: 'Roboto',
         scaffoldBackgroundColor: Colors.white,
       ),
-      home: const PedidosCocinaScreen(),
+      home: LoginScreen(
+  apiBaseUrl: servidorLaravel,
+  destino: (_) => const PedidosCocinaScreen(),
+),
     );
   }
 }
@@ -415,29 +418,57 @@ void pedidoListo(Pedido pedido) {
                     itemBuilder: (context, index) {
                       final Pedido pedido = pedidosAnteriores[index];
 
-                      return ListTile(
-                        leading: const CircleAvatar(
-                          backgroundColor: azul,
-                          child: Icon(
-                            Icons.check,
-                            color: Colors.white,
-                          ),
-                        ),
-                        title: Text(
-                          'Pedido #${pedido.numero.toString().padLeft(4, '0')}',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        subtitle: Text(
-                          '${pedido.mesa} · ${pedido.hora}\n'
-                          '${pedido.productos.length} producto(s)',
-                        ),
-                        isThreeLine: true,
-                      );
+                     return ListTile(
+  leading: const CircleAvatar(
+    backgroundColor: azul,
+    child: Icon(
+      Icons.check,
+      color: Colors.white,
+    ),
+  ),
+  title: Text(
+    'Pedido #${pedido.numero.toString().padLeft(4, '0')}',
+    style: const TextStyle(
+      fontWeight: FontWeight.bold,
+    ),
+  ),
+  subtitle: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Text(
+        'Listo',
+        style: TextStyle(
+          color: Colors.green.shade700,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+      const SizedBox(height: 2),
+      Text('${pedido.mesa} · ${pedido.hora}'),
+      const SizedBox(height: 8),
+      const Text(
+        'Productos preparados',
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      const SizedBox(height: 4),
+      ...pedido.productos.map(
+        (producto) => Padding(
+          padding: const EdgeInsets.only(bottom: 2),
+          child: Text(
+            '${producto.cantidad}x ${producto.nombre}',
+          ),
+        ),
+      ),
+    ],
+  ),
+);
                     },
                   ),
           ),
+                  
+          
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
